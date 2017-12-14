@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Lightcycles</title>
+		<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => false %>
+		<%= javascript_include_tag "application", "data-turbolinks-track" => false %>
+		<%= csrf_meta_tags %>
+	</head>
+	<body>
+
+		<%= render 'layouts/header' %>
+		<%= render 'layouts/flash', :flash => flash %>
+		<%= yield %>
+
+	</body>
+</html>

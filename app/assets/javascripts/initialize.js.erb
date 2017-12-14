@@ -1,0 +1,94 @@
+// Global objects and game initialization logic
+
+// the GAME global object holds most functions associated with running the game
+var GAME = {}; // TODO: change "GAME" for "LC"?
+
+// global variables to hold both cycles
+var cycle1 = {};	
+var cycle2 = {};
+
+// hold image paths for selection according to orientation and color
+GAME.image_paths = {
+	"blue": {
+		"up": "<%= asset_path('cycles/cycle_blue_up.png') %>",
+		"down": "<%= asset_path('cycles/cycle_blue_down.png') %>",
+		"left": "<%= asset_path('cycles/cycle_blue_left.png') %>",
+		"right": "<%= asset_path('cycles/cycle_blue_right.png') %>"
+	},
+	"red": {
+		"up": "<%= asset_path('cycles/cycle_red_up.png') %>",
+		"down": "<%= asset_path('cycles/cycle_red_down.png') %>",
+		"left": "<%= asset_path('cycles/cycle_red_left.png') %>",
+		"right": "<%= asset_path('cycles/cycle_red_right.png') %>"
+	}
+};	
+
+// only initialize game after page has finished loading (will encounter errors otherwise)
+$(function () {
+	if ($("#game").length > 0) GAME.initGame();
+});
+
+// initialize relevant variables and draw the field
+GAME.initGame = function () {
+
+	this.running = false;
+
+	this.field_width = 800;
+	this.field_height = 600;
+
+	this.wall_width = 10;
+
+	this.cycle_width = 12;
+	this.half_cycle_width = GAME.cycle_width / 2;
+
+	this.cycle_length = 40;
+	this.half_cycle_length = GAME.cycle_length / 2;
+
+	this.boostDuration = 3000; // 3 seconds
+	this.boostFactor = 1.5; // velocity*boostFactor when boosted
+
+	this.finished = false;
+
+	// set up first cycle
+	cycle1 = new Cycle("blue");
+	cycle1.position.x = this.field_width / 4;
+	cycle1.position.y = this.field_height / 2;
+	cycle1.orientation = "right";
+	cycle1.wallColor = '#1919ff';
+
+	// set up second cycle
+	cycle2 = new Cycle("red");
+	cycle2.position.x = (this.field_width * 3) / 4;
+	cycle2.position.y = this.field_height / 2;
+	cycle2.orientation = "left";
+	cycle2.wallColor = '#ff3300';
+
+	if (SVG.supported) {
+
+		// create the playing field and give it a border
+		var draw = SVG('game').size(GAME.field_width, GAME.field_height).fixSubPixelOffset();
+		var border = draw.rect(GAME.field_width, GAME.field_height).attr({ stroke: "black", "stroke-width": 4, fill: "#dddddd" });
+
+		cycle1.images.up = draw.image(GAME.image_paths[cycle1.color]["up"], GAME.cycle_width, GAME.cycle_length).hide();
+		cycle1.images.down = draw.image(GAME.image_paths[cycle1.color]["down"], GAME.cycle_width, GAME.cycle_length).hide();
+		cycle1.images.left = draw.image(GAME.image_paths[cycle1.color]["left"], GAME.cycle_length, GAME.cycle_width).hide();
+		cycle1.images.right = draw.image(GAME.image_paths[cycle1.color]["right"], GAME.cycle_length, GAME.cycle_width);
+
+		cycle1.current_image = cycle1.images.right;
+		cycle1.current_image.center(cycle1.position.x, cycle1.position.y);
+
+		cycle2.images.up = draw.image(GAME.image_paths[cycle2.color]["up"], GAME.cycle_width, GAME.cycle_length).hide();
+		cycle2.images.down = draw.image(GAME.image_paths[cycle2.color]["down"], GAME.cycle_width, GAME.cycle_length).hide();
+		cycle2.images.left = draw.image(GAME.image_paths[cycle2.color]["left"], GAME.cycle_length, GAME.cycle_width);
+		cycle2.images.right = draw.image(GAME.image_paths[cycle2.color]["right"], GAME.cycle_length, GAME.cycle_width).hide();
+
+		cycle2.current_image = cycle2.images.left;
+		cycle2.current_image.center(cycle2.position.x, cycle2.position.y);
+		
+		GAME.svg_root = draw; // expose parent svg element
+	}
+	else {
+		// alert the user
+		alert("Sorry! SVG is not supported in your browser. Please use a different one.");
+	}
+}

@@ -1,0 +1,23 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 text-center">
+				<div>
+					<h5>Register to play CS50 Lightcycles!</h5>
+				</div>
+			<%= form_for(@user, html: { class: "form-inline" }) do |f| %>
+				<div style="margin-top:5px">
+					<%= f.text_field :username, placeholder: "username", class: "form-control", style: "width:200px" %>
+				</div>
+				<div style="margin-top:5px">
+					<%= f.password_field :password, placeholder: "password (>= 8 chars.)", class: "form-control", style: "width:200px" %>
+				</div>
+				<div style="margin-top:5px">
+					<%= f.password_field :password_confirmation, placeholder: "confirm password", class: "form-control", style: "width:200px" %>
+				</div>
+				<div style="margin-top:5px">
+					<%= f.submit "Register", class: "btn btn-default", style: "width:200px" %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>

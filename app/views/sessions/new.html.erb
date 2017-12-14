@@ -1,0 +1,31 @@
+<div class="container">
+	<div class="row">
+		<%= form_for @user, url: "/login", html: { class: "form-inline" } do |f| %>
+			<div class="col-xs-12 text-center">
+				<h5>Sign in to begin playing!</h5>		
+
+				<div>
+					<%= f.text_field :username, placeholder: "username", class: "form-control", style: "width:200px" %>
+				</div>
+
+				<div style="margin-top:10px">
+					<%= f.password_field :password, placeholder: "password", class: "form-control", style: "width:200px" %>
+				</div>
+
+				<div style="margin-top:10px">
+					<%= f.submit "Go!", class: "btn btn-default", style: "width:200px" %>
+				</div>
+
+				<div style="margin-top:5px">
+					No account? <%= link_to "Sign up!", "/signup" %>
+				</div>
+
+				<div style="margin-top:5px">
+					Too lazy? <%= link_to "Sign in as guest", "/guest" %>
+				</div>
+
+			</div>
+		<% end %>
+	</div>
+	
+</div>

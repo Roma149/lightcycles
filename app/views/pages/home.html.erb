@@ -1,0 +1,117 @@
+<div class="container">
+	
+	<div class="row">
+		<div class="col-xs-9">
+			<div id="game" class="text-center">
+
+			</div>
+		</div>
+
+		<div class="col-xs-3">
+			<div id="cycle1-info">
+				<div class="row-fluid">
+					<%= image_tag "cycles/cycle_blue_left.png" %>
+				</div>
+				<div class="row-fluid">
+					<strong>"<%= current_user.username %>"</strong>
+				</div>
+				<div class="row-fluid">
+					<span>Boosts left: <span id="boosts-left-cycle1">3</span></span>
+				</div>
+				<div class="row-fluid">
+					<span>Wins: <span id="wins-player1"><%= current_user.wins %></span></span>
+				</div>
+				<div class="row-fluid">
+					<span>Losses: <span id="losses-player1"><%= current_user.losses %></span></span>
+				</div>
+				<div class="row-fluid">
+					<span>Draws: <span id="draws-player1"><%= current_user.draws %></span></span>
+				</div>
+			</div>
+
+			<div id="cycle2-info" style="margin-top:20px">
+				<div class="row-fluid">
+					<%= image_tag "cycles/cycle_red_left.png" %>
+				</div>
+				<div class="row-fluid">
+					<span>"Human Player"</span>
+				</div>
+				<div class="row-fluid">
+					<span>Boosts left: <span id="boosts-left-cycle2">3</span> </span>
+				</div>
+				<div class="row-fluid">
+					<span>Wins: <span id="wins-player2">0</span></span>
+				</div>
+				<div class="row-fluid">
+					<span>Losses: <span id="losses-player2">0</span></span>
+				</div>
+				<div class="row-fluid">
+					<span>Draws: <span id="draws-player2">0</span></span>
+				</div>
+			</div>
+
+			<div class="row-fluid" style="margin-top:140px">
+				<%= button_tag "Start", id: "start-button", class: "btn btn-primary button-side" %>
+			</div>
+			<div class="row-fluid" style="margin-top:10px">
+				<%= button_tag "Pause", id: "pause-button", class: "btn btn-default button-side" %>
+			</div>
+			<div class="row-fluid" style="margin-top:10px">
+				<%= button_tag "Reset", id: "reset-button", class: "btn btn-danger button-side" %>
+			</div>
+			<div class="row-fluid" style="margin-top:40px">
+				<%= button_tag "Instructions", id: "instructions-button", class: "btn btn-success button-side", :'data-toggle' => "modal", :'data-target' => "#instructions-modal" %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<form>
+			<%= check_box_tag :disable_red %>
+			<%= label_tag :disable_red, "Disable red" %>
+		</form>
+	</div>
+
+</div>
+
+<script>
+	$(function () {
+		$("#disable_red").change(function () {
+			if ($(this).is(":checked")) {
+				console.log("Cycle 2 disabled");
+				cycle2.disabled = true;
+			}
+			else {
+				console.log("Cycle 2 enabled");
+				cycle2.disabled = false;
+			}
+		});
+	});
+</script>
+
+
+<!-- instructions modal -->
+<div class="modal fade" id="instructions-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Instructions</h4>
+      </div>
+      <div class="modal-body">
+        Use <strong>WASD</strong> to control the blue lightcycle's direction.<br/>
+        Press <strong>E</strong> to toggle the building of walls.<br/>
+        Press <strong>Q</strong> for a quick boost in speed. Watch out, you only have 3, and they don't last long!<br/>
+        <br/>
+        If the red lightcycle is human controlled, use the directional arrows to control its direction.<br/>
+        Press <strong>M</strong> to toggle wall building.<br/>
+        Pres <strong>N</strong> for a speed boost.<br/>
+        <br/>
+        The first lightcycle to crash into something losses! You can crash into any player's walls, the edges of the field, or the other lightcycle!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

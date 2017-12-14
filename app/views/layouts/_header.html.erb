@@ -1,0 +1,32 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Lightcycles for CS50</a>
+    </div>
+
+    
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li <%= "class=active" if action_name == "home" %>><a href="/">Game</a></li>
+        <li <%= "class=active" if action_name == "scoreboard" %>><a href="/scoreboard">Scoreboard</a></li>
+      </ul>
+
+      <% if signed_in? %>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><%= current_user.username %></a></li>
+            <li><%= link_to "Log out", "/logout", id: "logout-link", method: :delete %></li>
+          </ul>
+      <% end %>
+
+    </div>
+  </div>
+</nav>
+
+<script>
+    $("#logout-link").click(function () {
+        window.confirm("Are you sure?");
+        window.confirm("Are you completely sure?");
+        window.confirm("Are you reeeeeeally really sure?");
+    });
+</script>

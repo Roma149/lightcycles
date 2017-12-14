@@ -1,0 +1,14 @@
+.button-side {
+	width:160px;
+}
+
+.flash {
+	border: 1px solid #eee;
+	background: #f9f9f9;
+	vertical-align: middle;
+	margin-top: -15px;
+	margin-bottom: 5px;
+	padding-left: 10px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+}	

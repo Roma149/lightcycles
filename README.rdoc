@@ -1,0 +1,3 @@
+== README
+
+Small JavaScript game based on TRON lightcycles. Done as an exercise for a Harvard online course. Game files are in app/assets/javascripts.

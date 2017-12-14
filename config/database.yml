@@ -1,0 +1,27 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: lightcycles_development
+  pool: 5
+  username: Agustin
+  password: 
+  host: localhost
+  port: 5432
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: lightcycles_test
+  pool: 5
+  username: Agustin
+  password: 
+  host: localhost
+  port: 5432
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: lightcycles_production
+  pool: 5
+  username: Agustin
+  password: 
